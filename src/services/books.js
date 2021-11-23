@@ -23,8 +23,10 @@ const updateBook = async (bookId, book) => {
   });
 };
 
-const deleteBook = async (book) => {
-  return Book.delete(book);
+const deleteBook = async (bookId) => {
+  return Book.delete({
+    where: {bookId},
+  });
 };
 
 module.exports = {
