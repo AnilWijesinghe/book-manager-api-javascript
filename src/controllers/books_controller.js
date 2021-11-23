@@ -36,7 +36,7 @@ const updateBook = async (req, res) => {
 
 const deleteBook = async (req, res) => {
   const bookId = req.params.bookId;
-  const book = await bookService.deleteBook(undefined);
+  const book = await bookService.deleteBook(Number(bookId));
 
   if (book) {
     res.json(book).status(200);
