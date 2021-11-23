@@ -94,6 +94,15 @@ describe('POST /api/v1/books endpoint', () => {
     expect(res.statusCode).toEqual(201);
   });
 
+  test('status code successfully 409 for trying to save already having book', async () => {
+    // Act
+    const res = await request(app).post('/api/v1/books')
+        .send({bookId: 3, title: 'Fantastic Mr. Fox', author: 'Roald Dahl'});
+
+    // Assert
+    expect(res.statusCode).toEqual(409);
+  });
+
   test('status code 400 when saving ill formatted JSON', async () => {
     // Arrange - enforce exception thrown
     bookService.saveBook = jest.fn().mockImplementation(() => {
