@@ -88,7 +88,7 @@ describe('POST /api/v1/books endpoint', () => {
   test('status code successfully 201 for saving a valid book', async () => {
     // Act
     const res = await request(app).post('/api/v1/books')
-      .send({bookId: 3, title: 'Fantastic Mr. Fox', author: 'Roald Dahl',});
+        .send({bookId: 3, title: 'Fantastic Mr. Fox', author: 'Roald Dahl'});
 
     // Assert
     expect(res.statusCode).toEqual(201);
@@ -97,13 +97,25 @@ describe('POST /api/v1/books endpoint', () => {
   test('status code 400 when saving ill formatted JSON', async () => {
     // Arrange - enforce exception thrown
     bookService.saveBook = jest.fn().mockImplementation(() => {
-      throw new Error("Error saving book");
+      throw new Error('Error saving book');
     });
     // Act
     const res = await request(app).post('/api/v1/books')
-      .send({title: 'Fantastic Mr. Fox', author: 'Roald Dahl',}); // No bookId
+        .send({title: 'Fantastic Mr. Fox', author: 'Roald Dahl'}); // No bookId
 
     // Assert
     expect(res.statusCode).toEqual(400);
+  });
+});
+
+describe('DELETE /api/v1/books/{bookId} endpoint', () => {
+  test('status code successfully 404 for a book that is not found', async () => {
+    // Arrange
+    bookService.deleteBook = jest.fn().mockReturnValue(undefined);
+    // Act
+    const res = await request(app).delete('/api/v1/books/10');
+
+    // Assert
+    expect(res.statusCode).toEqual(404);
   });
 });

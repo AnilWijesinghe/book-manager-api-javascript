@@ -23,9 +23,14 @@ const updateBook = async (bookId, book) => {
   });
 };
 
+const deleteBook = async (book) => {
+  return null;
+};
+
 module.exports = {
   getBooks,
   getBook,
   saveBook,
   updateBook, // User Story 4 - Update Book By Id Solution
+  deleteBook,
 };

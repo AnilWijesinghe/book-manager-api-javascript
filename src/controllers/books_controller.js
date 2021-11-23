@@ -21,8 +21,7 @@ const saveBook = async (req, res) => {
   try {
     const book = await bookService.saveBook(bookToBeSaved);
     res.status(201).json(book);
-  }
-  catch(error) {
+  } catch (error) {
     res.status(400).json({message: error.message});
   }
 };
@@ -35,9 +34,14 @@ const updateBook = async (req, res) => {
   res.status(204).json(book);
 };
 
+const deleteBook = async (req, res) => {
+
+};
+
 module.exports = {
   getBooks,
   getBook,
   saveBook,
   updateBook, // User Story 4 - Update Book By Id Solution
+  deleteBook,
 };
