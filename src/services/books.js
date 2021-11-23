@@ -24,7 +24,7 @@ const updateBook = async (bookId, book) => {
 };
 
 const deleteBook = async (book) => {
-  return null;
+  return Book.delete(book);
 };
 
 module.exports = {
