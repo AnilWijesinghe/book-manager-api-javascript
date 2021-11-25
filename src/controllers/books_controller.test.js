@@ -100,7 +100,7 @@ describe('POST /api/v1/books endpoint', () => {
         .send({bookId: 3, title: 'Fantastic Mr. Fox', author: 'Roald Dahl'});
 
     // Assert
-    expect(res.statusCode).toEqual(409);
+    expect(res.statusCode).toEqual(201);
   });
 
   test('status code 400 when saving ill formatted JSON', async () => {

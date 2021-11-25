@@ -20,6 +20,9 @@ const getBook = async (req, res) => {
       res.status(404).json('Not found');
     }
   } catch (error) {
+    if (error.message==='Book is already exist') {
+      res.status(409).json({message: error.message});
+    }
     res.status(400).json({message: error.message});
   }
 };

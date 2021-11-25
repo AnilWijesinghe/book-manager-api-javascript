@@ -11,7 +11,16 @@ const getBook = async (bookId) => {
 };
 
 const saveBook = async (book) => {
-  return Book.create(book);
+  if (book.bookId!==undefined && book.bookId!==null) {
+    const alreadySavedBook = getBook(book);
+    if (alreadySavedBook===null) {
+      return Book.create(book);
+    } else {
+      throw new Error('Book is already exist');
+    }
+  } else {
+    return Book.create(book);
+  }
 };
 
 // User Story 4 - Update Book By Id Solution
