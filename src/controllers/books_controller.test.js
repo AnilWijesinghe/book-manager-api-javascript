@@ -95,12 +95,17 @@ describe('POST /api/v1/books endpoint', () => {
   });
 
   test('status code successfully 409 for trying to save already having book', async () => {
+    // Arrange
+    bookService.saveBook = jest.fn().mockImplementation(() => {
+      throw new Error('Book is already exist');
+    });
+
     // Act
     const res = await request(app).post('/api/v1/books')
         .send({bookId: 3, title: 'Fantastic Mr. Fox', author: 'Roald Dahl'});
 
     // Assert
-    expect(res.statusCode).toEqual(201);
+    expect(res.statusCode).toEqual(409);
   });
 
   test('status code 400 when saving ill formatted JSON', async () => {
@@ -120,7 +125,9 @@ describe('POST /api/v1/books endpoint', () => {
 describe('DELETE /api/v1/books/{bookId} endpoint', () => {
   test('status code successfully 404 for a book that is not found to delete', async () => {
     // Arrange
-    bookService.deleteBook = jest.fn().mockReturnValue(undefined);
+    bookService.deleteBook = jest.fn().mockImplementation(() => {
+      throw new Error('Book is not found');
+    });
     // Act
     const res = await request(app).delete('/api/v1/books/10');
 

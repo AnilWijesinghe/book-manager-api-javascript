@@ -40,6 +40,8 @@ const deleteBook = async (bookId) => {
     } else {
       throw new Error('Book is not found');
     }
+  } else {
+    throw new Error('Book is not found');
   }
 };
 
