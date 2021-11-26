@@ -12,7 +12,7 @@ const getBook = async (bookId) => {
 
 const saveBook = async (book) => {
   if (book.bookId!==undefined && book.bookId!==null) {
-    const alreadySavedBook = getBook(book);
+    const alreadySavedBook = await getBook(Number(book.bookId));
     if (alreadySavedBook===null) {
       return Book.create(book);
     } else {
