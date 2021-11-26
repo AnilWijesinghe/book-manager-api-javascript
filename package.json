@@ -4,6 +4,7 @@
   "description": "A repository used to demonstrate API creation using NodeJS",
   "scripts": {
     "start": "node src/server.js",
+    "start-prod": "NODE_ENV=prod node src/server.js",
     "test": "jest"
   },
   "repository": {

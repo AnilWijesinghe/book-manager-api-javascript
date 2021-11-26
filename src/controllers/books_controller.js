@@ -1,6 +1,7 @@
 const {bookService} = require('../services');
 
 const getBooks = async (req, res) => {
+  console.log('&&&&&&&&&&&&');
   try {
     const books = await bookService.getBooks();
     res.json(books).status(200);
@@ -11,6 +12,7 @@ const getBooks = async (req, res) => {
 
 const getBook = async (req, res) => {
   try {
+    console.log('**********************');
     const bookId = req.params.bookId;
     const book = await bookService.getBook(Number(bookId));
 
@@ -52,13 +54,12 @@ const updateBook = async (req, res) => {
 const deleteBook = async (req, res) => {
   const bookId = req.params.bookId;
   try {
-    const book = await bookService.deleteBook(Number(bookId));
-    if (book) {
-      res.json(book).status(200);
-    } else {
-      res.status(404).json('Not found');
-    }
+    await bookService.deleteBook(Number(bookId));
+    res.json({message: 'Successfully deleted'}).status({code: 200});
   } catch (error) {
+    if (error.message==='Book is not found') {
+      res.status(404).json({message: error.message});
+    }
     res.status(400).json({message: error.message});
   }
 };

@@ -1,6 +1,6 @@
 const environment = process.env.NODE_ENV || 'dev';
-// require('dotenv').config({path: `.env.${environment}`});
-require('dotenv').config();
+require('dotenv').config({path: `.env.${environment}`});
+// require('dotenv').config();
 const app = require('./app');
 const populateDummyData = require('./database/database_seed');
 app.listen(process.env.PORT, () => {

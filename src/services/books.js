@@ -33,9 +33,14 @@ const updateBook = async (bookId, book) => {
 };
 
 const deleteBook = async (bookId) => {
-  return Book.delete({
-    where: {bookId},
-  });
+  if (bookId!==undefined && bookId!==null) {
+    const savedBook = await getBook(Number(bookId));
+    if (savedBook!==null) {
+      return savedBook.destroy();
+    } else {
+      throw new Error('Book is not found');
+    }
+  }
 };
 
 module.exports = {
