@@ -1,4 +1,5 @@
 const Book = require('../models/book');
+const constants = require('../constants');
 
 /**
  * retrieve all books service
@@ -29,7 +30,7 @@ const saveBook = async (book) => {
     // get the book passing primary key for check book availability
     const alreadySavedBook = await getBook(Number(book.bookId));
     if (alreadySavedBook===null) return Book.create(book);
-    else throw new Error('Book is already exist');
+    else throw new Error(constants.BOOK_EXIST);
   } else return Book.create(book);
 };
 
@@ -57,8 +58,8 @@ const deleteBook = async (bookId) => {
     // get the book passing primary key
     const savedBook = await getBook(Number(bookId));
     if (savedBook!==null) return savedBook.destroy();
-    else throw new Error('Book is not found');
-  } else throw new Error('Book is not found');
+    else throw new Error(constants.BOOK_NOT_FOUND);
+  } else throw new Error(constants.BOOK_NOT_FOUND);
 };
 
 module.exports = {

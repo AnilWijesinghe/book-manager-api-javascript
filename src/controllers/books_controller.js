@@ -1,4 +1,5 @@
 const {bookService} = require('../services');
+const constants = require('../constants');
 
 /**
  * retrieve all books controller
@@ -26,7 +27,7 @@ const getBook = async (req, res) => {
     const bookId = req.params.bookId;
     const book = await bookService.getBook(Number(bookId));
     if (book) res.json(book).status(200);
-    else res.status(404).json('Not found');
+    else res.status(404).json(constants.NOT_FOUND);
   } catch (error) {
     res.status(400).json({message: error.message});
   }
@@ -44,7 +45,7 @@ const saveBook = async (req, res) => {
     const book = await bookService.saveBook(bookToBeSaved);
     res.status(201).json(book);
   } catch (error) {
-    if (error.message==='Book is already exist') res.status(409).json({message: error.message});
+    if (error.message===constants.BOOK_EXIST) res.status(409).json({message: error.message});
     else res.status(400).json({message: error.message});
   }
 };
@@ -76,9 +77,9 @@ const deleteBook = async (req, res) => {
   const bookId = req.params.bookId;
   try {
     await bookService.deleteBook(Number(bookId));
-    res.json({message: 'Successfully deleted'}).status(200);
+    res.json({message: constants.DEL_SUCCESS}).status(200);
   } catch (error) {
-    if (error.message==='Book is not found') res.status(404).json({message: error.message});
+    if (error.message===constants.BOOK_NOT_FOUND) res.status(404).json({message: error.message});
     else res.status(400).json({message: error.message});
   }
 };
@@ -87,6 +88,6 @@ module.exports = {
   getBooks,
   getBook,
   saveBook,
-  updateBook, // User Story 4 - Update Book By Id Solution
+  updateBook,
   deleteBook,
 };
