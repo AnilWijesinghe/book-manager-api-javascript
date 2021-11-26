@@ -60,8 +60,8 @@ const updateBook = async (req, res) => {
   try {
     const bookUpdateData = req.body;
     const bookId = req.params.bookId;
-    const book = await bookService.updateBook(bookId, bookUpdateData);
-    res.status(204).json(book);
+    await bookService.updateBook(bookId, bookUpdateData);
+    res.json({message: constants.UPT_SUCCESS}).status(204);
   } catch (error) {
     res.status(400).json({message: error.message});
   }
