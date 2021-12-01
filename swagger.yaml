@@ -1,0 +1,145 @@
+openapi: 3.0.0
+info:
+  title: Swagger API documentation for Book Manager
+  description: Documented API end points for CRUD operations in Book Manager
+  version: 0.1.9
+servers:
+  - url: http://localhost:3000/api/v1
+paths:
+  /api/v1/books:
+    get:
+      summary: Get all books
+      responses:
+        '200':
+          description: Books are retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/AllBooks'
+    post:
+      summary: Save book
+      description: Operation to save book
+      requestBody:
+        description: Book data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/BookSave'
+      responses:
+        '201':
+          description: Book has been saved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/BookSave'
+  /api/v1/books/{bookId}:
+    get:
+      summary: Get a Book by ID
+      parameters:
+        - in: path
+          name: bookId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the book to get
+      responses:
+        '200':
+          description: Books is retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/definitions/Book'
+    put:
+      summary: Update a Book by ID
+      parameters:
+        - in: path
+          name: bookId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the book to fetch and update
+      requestBody:
+        description: Book data
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/definitions/BookUpdate'
+      responses:
+        '204':
+          description: Successfully updated
+    delete:
+      summary: Delete the Book by ID
+      parameters:
+        - in: path
+          name: bookId
+          schema:
+            type: integer
+          required: true
+          description: Numeric ID of the book to get
+      responses:
+        '200':
+          description: Successfully deleted
+definitions:
+  AllBooks:
+    type: array
+    items:
+      type: object
+      properties:
+        bookId:
+          type: integer
+          example: 1
+        title:
+          type: String
+          example: Fantastic Mr. Fox
+        author:
+          type: String
+          example: Roald Dahl
+    application/json:
+      name: Book
+  Book:
+    type: object
+    items: null
+    properties:
+      bookId:
+        type: integer
+        example: 1
+      title:
+        type: String
+        example: Fantastic Mr. Fox
+      author:
+        type: String
+        example: Roald Dahl
+    application/json:
+      name: Book
+  BookSave:
+    type: object
+    items: null
+    properties:
+      bookId:
+        type: integer
+        example: 2
+      title:
+        type: String
+        example: 'You Don''t Know JS Yet: Get Started'
+      author:
+        type: String
+        example: Kyle Simpson
+    application/json:
+      name: Book
+  BookUpdate:
+    type: object
+    items: null
+    properties:
+      bookId:
+        type: integer
+        example: 2
+      title:
+        type: String
+        example: 'JS: Advanced'
+      author:
+        type: String
+        example: Kyle Simpson
+    application/json:
+      name: Book
